@@ -12,12 +12,12 @@
     "index.js",
     "cordis.patch.yml",
     "README.md",
-    "computer-use/SKILL.md",
-    "computer-use/README.md",
-    "computer-use/PRIOR_ART.md",
-    "computer-use/scripts/computer_use.py",
-    "computer-use/tests/test_cancel_key.py",
-    "computer-use/tests/test_cancel_key_e2e.py"
+    "SKILL.md",
+    "PRIOR_ART.md",
+    "scripts/computer_use.py",
+    "tests/test_cancel_key.py",
+    "tests/test_cancel_key_e2e.py",
+    "tests/plugin.test.js"
   ],
   "keywords": [
     "dsh",
@@ -35,7 +35,10 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "python computer-use/tests/test_cancel_key.py",
-    "self-test": "python computer-use/scripts/computer_use.py self_test"
+    "test": "node --test tests/plugin.test.js && python tests/test_cancel_key.py",
+    "self-test": "python scripts/computer_use.py self_test"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
   }
 }

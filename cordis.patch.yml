@@ -2,13 +2,17 @@
 # computer_use tool. The plugin has no npm dependencies; it runs the bundled
 # Python engine as a subprocess.
 #
+# Every !!js expression is single-quoted. An unquoted one containing ": "
+# (as the timeoutMs ternary does) is parsed by YAML as a nested mapping, so the
+# plugin receives an object instead of a number and refuses to start.
+#
 # Override the interpreter when `python` on PATH is not the one that has Pillow:
 #   COMPUTER_USE_PYTHON=C:\path\to\python.exe
 - insert:
     - id: computer-use
       name: dsh-computer-use
       config:
-        pythonPath: !!js process.env.COMPUTER_USE_PYTHON ?? ''
+        pythonPath: !!js 'process.env.COMPUTER_USE_PYTHON ?? ""'
         # Long-running actions (a full-screen screenshot, a settle wait) need
         # more than the default tool timeout.
-        timeoutMs: !!js process.env.COMPUTER_USE_TIMEOUT_MS ? Number(process.env.COMPUTER_USE_TIMEOUT_MS) : 120000
+        timeoutMs: !!js 'process.env.COMPUTER_USE_TIMEOUT_MS ? Number(process.env.COMPUTER_USE_TIMEOUT_MS) : 120000'

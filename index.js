@@ -30,6 +30,19 @@ const DEFAULTS = {
 };
 
 /**
+ * Coerce a config value that YAML may hand over as a string.
+ *
+ * A bundle patch is YAML, and YAML will happily produce the string "120000"
+ * from a value the author meant as a number. Accepting the numeric string is
+ * the difference between the plugin loading and the whole profile failing.
+ */
+function toInteger(value, label) {
+  if (typeof value === 'number' && Number.isInteger(value)) return value;
+  if (typeof value === 'string' && /^\s*-?\d+\s*$/.test(value)) return Number(value);
+  throw new Error(`${label} must be an integer, got ${JSON.stringify(value)}.`);
+}
+
+/**
  * Resolve the engine script and the Python that runs it.
  *
  * Both are discoverable rather than hard-coded so the plugin keeps working when
@@ -41,14 +54,17 @@ export function resolveConfig(raw) {
 
   if (typeof config.pythonPath !== 'string') throw new Error('computer-use: pythonPath must be a string.');
   if (typeof config.scriptPath !== 'string') throw new Error('computer-use: scriptPath must be a string.');
-  if (!Number.isInteger(config.timeoutMs) || config.timeoutMs < 5_000 || config.timeoutMs > 1_800_000) {
-    throw new Error('computer-use: timeoutMs must be an integer between 5000 and 1800000.');
+
+  const timeoutMs = toInteger(config.timeoutMs, 'computer-use: timeoutMs');
+  if (timeoutMs < 5_000 || timeoutMs > 1_800_000) {
+    throw new Error('computer-use: timeoutMs must be between 5000 and 1800000.');
   }
 
-  const scriptPath = config.scriptPath || join(HERE, 'computer-use', 'scripts', 'computer_use.py');
+  // An empty string means "not set" for both paths; ?? would keep ''.
+  const scriptPath = config.scriptPath || join(HERE, 'scripts', 'computer_use.py');
   const pythonPath = config.pythonPath || process.env.COMPUTER_USE_PYTHON || 'python';
 
-  return { ...config, scriptPath, pythonPath };
+  return { ...config, scriptPath, pythonPath, timeoutMs };
 }
 
 /**
