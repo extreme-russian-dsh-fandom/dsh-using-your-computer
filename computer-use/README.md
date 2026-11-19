@@ -31,6 +31,13 @@ Install the plugin into a DSH profile straight from GitHub:
 dsh plugin --profile desktop add github:extreme-russian-dsh-fandom/dsh-using-your-computer
 ```
 
+Verified output on a clean profile:
+
+```text
++ dsh-computer-use 0.1.0
+Done in 3s using pnpm v11.28.5
+```
+
 Then add the bundle to the profile's `package.json` `dsh.profile.bundles` list
 (alongside the other bundles) and restart DSH. Verify with:
 
@@ -47,6 +54,11 @@ dsh plugin --profile desktop add github:extreme-russian-dsh-fandom/dsh-using-you
 `dsh plugin` forwards its arguments to pnpm inside the profile directory, so any
 spec pnpm accepts works. Installed plugins appear under
 `~/.dsh/profiles/<profile>/node_modules/`.
+
+This package has no build step, so pnpm never runs a `prepare` script for it. If
+a future version adds one, pnpm blocks it until you allow it: dsh prints the exact
+key, add it under `allowBuilds` in
+`~/.dsh/profiles/<profile>/pnpm-workspace.yaml`, then re-run the install.
 
 ### Engine interpreter
 
