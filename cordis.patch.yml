@@ -1,0 +1,14 @@
+# dsh-computer-use bundle patch: inserts the Host row that registers the
+# computer_use tool. The plugin has no npm dependencies; it runs the bundled
+# Python engine as a subprocess.
+#
+# Override the interpreter when `python` on PATH is not the one that has Pillow:
+#   COMPUTER_USE_PYTHON=C:\path\to\python.exe
+- insert:
+    - id: computer-use
+      name: dsh-computer-use
+      config:
+        pythonPath: !!js process.env.COMPUTER_USE_PYTHON ?? ''
+        # Long-running actions (a full-screen screenshot, a settle wait) need
+        # more than the default tool timeout.
+        timeoutMs: !!js process.env.COMPUTER_USE_TIMEOUT_MS ? Number(process.env.COMPUTER_USE_TIMEOUT_MS) : 120000

@@ -1,0 +1,106 @@
+# ---- Python ----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+sdist/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env.dsh-venv/
+
+# Test and coverage output
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+.hypothesis/
+nosetests.xml
+*.mo
+
+# ---- Node / plugin packaging ----------------------------------------------
+node_modules/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+*.tgz
+.npm/
+.yarn/
+
+# ---- Environment / secrets -------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+.secrets/
+
+# ---- Runtime artifacts (this project produces these) ----------------------
+# Screenshots taken by the engine.
+*.png
+!docs/**/*.png
+!*.icon.png
+# The engine's own state lives in %TEMP%\computer_use, never in the repo.
+audit.jsonl
+session.json
+
+# ---- Editor / OS -----------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ---- Logs / temp -----------------------------------------------------------
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+*.rej
+
+# ---- Build / test scratch --------------------------------------------------
+# One-off diagnostic scripts written while debugging; they never belong here.
+_*.py
+_diag*.py
+_probe*.py
+_verify*.py
+_findisland*.py
+_proof*.py
+cu-*.png
+scratch/

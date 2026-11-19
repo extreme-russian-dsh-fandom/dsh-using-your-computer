@@ -1,0 +1,41 @@
+{
+  "name": "dsh-computer-use",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DeepSeek Harness plugin that lets the agent control the user's Windows desktop (screenshot, mouse, keyboard) with an island indicator on every monitor and a guaranteed ESC cancel key.",
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md",
+    "computer-use/SKILL.md",
+    "computer-use/README.md",
+    "computer-use/PRIOR_ART.md",
+    "computer-use/scripts/computer_use.py",
+    "computer-use/tests/test_cancel_key.py",
+    "computer-use/tests/test_cancel_key_e2e.py"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "computer-use",
+    "desktop",
+    "automation"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "python computer-use/tests/test_cancel_key.py",
+    "self-test": "python computer-use/scripts/computer_use.py self_test"
+  }
+}
